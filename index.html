@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Engineering — Your Own Syllabus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B5A50">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AI Syllabus">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<style>
+  :root{
+    --paper:#F2F4F1;
+    --card:#FFFFFF;
+    --ink:#14201E;
+    --ink-soft:#3C4A47;
+    --line:#D6DCD5;
+    --teal:#0B5A50;
+    --teal-bright:#0E6E62;
+    --build:#8F4711;
+    --build-soft:#F4E6D6;
+    --teal-soft:#DCEAE5;
+    --frag-text:#094A42;
+    --build-text:#7A3C0D;
+    --breather-line:#B6BEBA;
+    --shadow:0 1px 2px rgba(20,32,30,.05), 0 8px 24px -16px rgba(20,32,30,.30);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal);text-decoration:none;}
+  a:hover{color:var(--teal-bright);text-decoration:underline;text-underline-offset:2px;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  /* ---- Header ---- */
+  header{padding:56px 0 28px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 14px;
+  }
+  h1{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:800;font-size:clamp(32px,7vw,52px);line-height:1.02;
+    letter-spacing:-.02em;margin:0 0 16px;
+  }
+  .lede{font-size:17px;color:var(--ink-soft);max-width:54ch;margin:0 0 28px;}
+
+  /* ---- Budget strip ---- */
+  .budget{
+    display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px;
+  }
+  .stat{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:12px 16px;flex:1 1 140px;
+  }
+  .stat b{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:22px;
+    display:block;line-height:1.1;
+  }
+  .stat span{font-size:12.5px;color:var(--ink-soft);}
+
+  /* ---- Legend ---- */
+  .legend{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:0 0 26px;font-size:13.5px;color:var(--ink-soft);}
+  .legend .tag{margin-right:8px;}
+
+  /* ---- Tags ---- */
+  .tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-weight:500;font-size:11px;
+    letter-spacing:.06em;text-transform:uppercase;
+    padding:3px 8px;border-radius:6px;white-space:nowrap;
+  }
+  .tag.frag{background:var(--teal-soft);color:var(--frag-text);}
+  .tag.build{background:var(--build-soft);color:var(--build-text);}
+  .tag.frag::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--frag-text);}
+  .tag.build::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--build-text);}
+
+  /* ---- Progress ---- */
+  .progress-block{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin:0 0 8px;display:flex;align-items:center;gap:16px;
+    box-shadow:var(--shadow);
+  }
+  .progress-count{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;white-space:nowrap;}
+  .bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden;}
+  .bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-bright));transition:width .4s ease;}
+  .reset{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;
+    background:none;border:1px solid var(--line);color:var(--ink-soft);
+    padding:6px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;
+  }
+  .reset:hover{border-color:var(--teal);color:var(--teal);}
+  .save-note{font-size:12px;color:var(--ink-soft);margin:0 2px 40px;font-style:italic;}
+
+  /* ---- Spine ---- */
+  .spine{position:relative;padding-left:34px;}
+  .spine::before{
+    content:"";position:absolute;left:10px;top:6px;bottom:40px;width:2px;
+    background:linear-gradient(var(--line),var(--line));
+  }
+  .phase{position:relative;margin:0 0 14px;}
+  .node{
+    position:absolute;left:-34px;top:2px;width:22px;height:22px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--teal);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--teal);
+  }
+  .phase.breather .node{border-color:var(--breather-line);color:var(--ink-soft);border-style:dashed;}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;box-shadow:var(--shadow);
+  }
+  .phase.breather .card{background:transparent;border-style:dashed;box-shadow:none;}
+
+  .week{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--teal);letter-spacing:.04em;margin:0 0 4px;
+  }
+  .phase.breather .week{color:var(--ink-soft);}
+  .mod{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+    font-size:20px;line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;
+  }
+  .hrs{
+    font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;
+    color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);
+    padding:2px 9px;border-radius:7px;white-space:nowrap;
+  }
+
+  ul.res{list-style:none;margin:14px 0 0;padding:0;}
+  ul.res li{
+    display:flex;align-items:flex-start;gap:11px;
+    padding:11px 0;border-top:1px solid var(--line);
+  }
+  ul.res li:first-child{border-top:none;padding-top:4px;}
+  .res-main{flex:1;min-width:0;}
+  .res-title{font-weight:500;}
+  .res-src{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:1px;}
+  .chk{
+    appearance:none;-webkit-appearance:none;flex:0 0 auto;
+    width:20px;height:20px;margin-top:2px;border:2px solid var(--line);border-radius:6px;
+    cursor:pointer;position:relative;background:var(--paper);transition:.15s;
+  }
+  .chk:hover{border-color:var(--teal);}
+  .chk:checked{background:var(--teal);border-color:var(--teal);}
+  .chk:checked::after{
+    content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .chk:focus-visible{outline:3px solid var(--teal-bright);outline-offset:2px;}
+  li.done .res-title{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--line);}
+
+  .goal{
+    margin:16px 0 0;padding:11px 14px;border-radius:10px;
+    background:var(--teal-soft);font-size:14px;
+  }
+  .goal b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--frag-text);display:block;margin-bottom:2px;}
+
+  /* ---- Survival kit ---- */
+  .kit{margin:48px 0 0;}
+  .kit h2,.optional h2{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;
+    letter-spacing:-.01em;margin:0 0 16px;
+  }
+  .kit ul{list-style:none;margin:0;padding:0;}
+  .kit li{
+    padding:13px 0 13px 30px;border-bottom:1px solid var(--line);position:relative;font-size:15px;
+  }
+  .kit li::before{
+    content:"→";position:absolute;left:0;top:13px;color:var(--build);font-family:'JetBrains Mono',monospace;font-weight:700;
+  }
+  .kit li:last-child{border-bottom:none;}
+
+  .optional{
+    margin:40px 0 0;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:24px 22px;
+  }
+  .optional p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+  .optional h2{font-size:19px;margin-bottom:8px;}
+
+  footer{padding:48px 0 64px;color:var(--ink-soft);font-size:13px;text-align:center;}
+
+  @media (max-width:480px){
+    .wrap{padding:0 16px;}
+    header{padding:40px 0 20px;}
+    .card{padding:17px 16px;}
+    .mod{font-size:18px;}
+    .progress-block{flex-wrap:wrap;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Self-paced · built around scarce time</p>
+    <h1>Agentic AI Engineering — your own syllabus</h1>
+    <p class="lede">The same seven modules as the paid bootcamp, rebuilt from free resources and paced for a full-time job and three small kids. Sequential, but nothing here expires — when a week falls apart, slide everything forward.</p>
+
+    <div class="budget">
+      <div class="stat"><b>~3 hrs</b><span>per week — realistic, not aspirational</span></div>
+      <div class="stat"><b>55–65 hrs</b><span>total across all modules</span></div>
+      <div class="stat"><b>16–18 wks</b><span>about four months end to end</span></div>
+    </div>
+
+    <div class="legend">
+      <span><span class="tag frag">Fragment</span> ~25&nbsp;min · phone-friendly · 2&times;/week (your L&amp;D slots, naps, commute)</span>
+      <span><span class="tag build">Build block</span> 60–90&nbsp;min · protected, uninterrupted · 1&times;/week</span>
+    </div>
+
+    <div class="progress-block">
+      <span class="progress-count" id="count">0 / 0</span>
+      <div class="bar"><div class="bar-fill" id="fill"></div></div>
+      <button class="reset" id="reset">Reset</button>
+    </div>
+    <p class="save-note" id="saveNote">Your checkmarks save on this device and stay put when you reopen the app.</p>
+  </header>
+
+  <main class="spine" id="spine">
+
+    <!-- PHASE 1 -->
+    <section class="phase">
+      <div class="node">01</div>
+      <div class="card">
+        <p class="week">Weeks 1–3</p>
+        <h2 class="mod">Module 1 · Foundations of Agentic AI &amp; LLM capabilities <span class="hrs">~9 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m1a"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.kaggle.com/learn-guide/5-day-genai" target="_blank" rel="noopener">Kaggle 5-Day Gen AI Intensive — Day 1</a><span class="res-src">LLM foundations: transformers → fine-tuning → reasoning models · free</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m1b"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic — Building Effective Agents</a><span class="res-src">The agent-vs-workflow essay most courses borrow from · free</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m1c"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://huggingface.co/learn/agents-course/en/unit0/introduction" target="_blank" rel="noopener">Hugging Face AI Agents Course — Units 0–1</a><span class="res-src">Free, with certificate</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m1d"><span class="res-main"><span class="tag build">Build</span> <span class="res-title">Set up Python + API key, run your first tool-calling agent</span><span class="res-src">From the HF course</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> An agent that calls one tool and loops.</p>
+      </div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section class="phase">
+      <div class="node">02</div>
+      <div class="card">
+        <p class="week">Weeks 4–6</p>
+        <h2 class="mod">Module 2 · Agent architecture: memory, tools, reasoning loops <span class="hrs">~9 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m2a"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.deeplearning.ai/courses/ai-agents-in-langgraph" target="_blank" rel="noopener">DeepLearning.AI — AI Agents in LangGraph</a><span class="res-src">Taught by LangChain's founder · ~1 hr of video · free to audit</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m2b"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.deeplearning.ai/courses" target="_blank" rel="noopener">DeepLearning.AI — Functions, Tools and Agents with LangChain</a><span class="res-src">Function calling &amp; tool building · find it in the free short-course catalog</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m2c"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct paper — Reasoning + Acting in LLMs</a><span class="res-src">The primary source for reasoning loops · free</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m2d"><span class="res-main"><span class="tag build">Build</span> <span class="res-title">Build an agent from scratch, rebuild it in LangGraph, add memory/persistence</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> An agent that remembers across turns.</p>
+      </div>
+    </section>
+
+    <!-- BREATHER -->
+    <section class="phase breather">
+      <div class="node">··</div>
+      <div class="card">
+        <p class="week">Week 7 · Buffer</p>
+        <h2 class="mod" style="font-size:17px;">Breather — no new material</h2>
+        <p style="margin:0;color:var(--ink-soft);font-size:14px;">Catch up, or revisit anything shaky. You'll need this week more than you think.</p>
+      </div>
+    </section>
+
+    <!-- PHASE 3 -->
+    <section class="phase">
+      <div class="node">03</div>
+      <div class="card">
+        <p class="week">Weeks 8–10</p>
+        <h2 class="mod">Module 3 · RAG agents &amp; vector databases <span class="hrs">~10 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m3a"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.coursera.org/learn/fundamentals-of-ai-agents-using-rag-and-langchain" target="_blank" rel="noopener">IBM — Fundamentals of AI Agents using RAG and LangChain</a><span class="res-src">Free to audit on Coursera</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m3b"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.deeplearning.ai/courses/retrieval-augmented-generation" target="_blank" rel="noopener">DeepLearning.AI — Retrieval Augmented Generation</a><span class="res-src">Comprehensive: retrievers, vector DBs, evaluation · free to audit</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m3c"><span class="res-main"><span class="tag build">Build</span> <a class="res-title" href="https://docs.langchain.com/oss/python/langchain/rag" target="_blank" rel="noopener">RAG over your own docs — Chroma, then Pinecone free tier</a><span class="res-src">Reference: LangChain "Build a RAG agent" docs</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> A working "chat with my docs" agent. Vector DBs: <a href="https://www.trychroma.com/" target="_blank" rel="noopener">Chroma</a> (free, local) · <a href="https://www.pinecone.io/" target="_blank" rel="noopener">Pinecone</a> (free tier).</p>
+      </div>
+    </section>
+
+    <!-- PHASE 4 -->
+    <section class="phase">
+      <div class="node">04</div>
+      <div class="card">
+        <p class="week">Weeks 11–12</p>
+        <h2 class="mod">Module 4 · Tree-of-Thought reasoning &amp; multi-agent concepts (Pt 1) <span class="hrs">~6 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m4a"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noopener">Tree of Thoughts paper (Yao et al., 2023)</a><span class="res-src">The original source · free</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m4b"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.prompthub.us/blog/how-tree-of-thoughts-prompting-works" target="_blank" rel="noopener">PromptHub — How Tree of Thoughts works</a><span class="res-src">Approachable explainer</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m4c"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://wandb.ai/sauravmaheshkar/prompting-techniques/reports/Chain-of-thought-tree-of-thought-and-graph-of-thought-Prompting-techniques-explained---Vmlldzo4MzQwNjMx" target="_blank" rel="noopener">W&amp;B — CoT vs ToT vs GoT explained</a><span class="res-src">Generate → evaluate → search with BFS/DFS</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m4d"><span class="res-main"><span class="tag build">Build</span> <a class="res-title" href="https://towardsdatascience.com/tree-of-thought-prompting-teaching-llm-to-think-slowly/" target="_blank" rel="noopener">Implement a small ToT prompt on a puzzle</a><span class="res-src">This article includes runnable code · lighter, mostly conceptual phase</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> Hands-on Tree-of-Thought on one problem.</p>
+      </div>
+    </section>
+
+    <!-- PHASE 5 -->
+    <section class="phase">
+      <div class="node">05</div>
+      <div class="card">
+        <p class="week">Weeks 13–15</p>
+        <h2 class="mod">Module 5 · Multi-agent workflows with CrewAI &amp; LangGraph (Pt 2) <span class="hrs">~11 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m5a"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai" target="_blank" rel="noopener">DeepLearning.AI — Multi AI Agent Systems with crewAI</a><span class="res-src">Taught by crewAI's founder · free to audit</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m5b"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.coursera.org/learn/agentic-ai-with-langgraph-crewai-autogen-and-beeai" target="_blank" rel="noopener">IBM — Agentic AI with LangGraph, CrewAI, AutoGen &amp; BeeAI</a><span class="res-src">Free to audit on Coursera</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m5c"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://docs.crewai.com" target="_blank" rel="noopener">CrewAI docs</a> · <a class="res-title" href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener">LangGraph docs</a><span class="res-src">Role-based vs graph-based control</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m5d"><span class="res-main"><span class="tag build">Build</span> <span class="res-title">Build a 3-role crew (researcher + writer + critic) in CrewAI, then port to LangGraph</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> Two multi-agent versions of one task, to feel the trade-offs.</p>
+      </div>
+    </section>
+
+    <!-- BREATHER -->
+    <section class="phase breather">
+      <div class="node">··</div>
+      <div class="card">
+        <p class="week">Week 16 · Buffer</p>
+        <h2 class="mod" style="font-size:17px;">Breather</h2>
+        <p style="margin:0;color:var(--ink-soft);font-size:14px;">Light week before the final stretch.</p>
+      </div>
+    </section>
+
+    <!-- PHASE 6 -->
+    <section class="phase">
+      <div class="node">06</div>
+      <div class="card">
+        <p class="week">Weeks 17–18</p>
+        <h2 class="mod">Module 6 · Evaluation, guardrails, logging, observability <span class="hrs">~7 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m6a"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://www.deeplearning.ai/courses/evaluating-ai-agents" target="_blank" rel="noopener">DeepLearning.AI — Evaluating AI Agents</a><span class="res-src">The direct match · free to audit</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m6b"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://docs.smith.langchain.com/" target="_blank" rel="noopener">LangSmith docs</a><span class="res-src">Tracing &amp; evals · free tier</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m6c"><span class="res-main"><span class="tag frag">Frag</span> <a class="res-title" href="https://langfuse.com/" target="_blank" rel="noopener">Langfuse</a> · <a class="res-title" href="https://mlflow.org/" target="_blank" rel="noopener">MLflow</a><span class="res-src">Open-source / self-hostable alternatives — no lock-in</span></span></li>
+          <li><input type="checkbox" class="chk" data-id="m6d"><span class="res-main"><span class="tag build">Build</span> <span class="res-title">Wire tracing into an existing agent; build a small eval set</span><span class="res-src">This is what separates "I made a demo" from "I can ship this"</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> A traced agent with its own eval set.</p>
+      </div>
+    </section>
+
+    <!-- PHASE 7 -->
+    <section class="phase">
+      <div class="node">07</div>
+      <div class="card">
+        <p class="week">Weeks 19+ · run at your own pace</p>
+        <h2 class="mod">Module 7 · Capstone <span class="hrs">~15–20 hrs</span></h2>
+        <ul class="res">
+          <li><input type="checkbox" class="chk" data-id="m7a"><span class="res-main"><span class="tag build">Build</span> <a class="res-title" href="https://huggingface.co/spaces" target="_blank" rel="noopener">Combine everything, then deploy free to Hugging Face Spaces</a><span class="res-src">Module 5 crew + Module 3 RAG knowledge base + Module 6 tracing &amp; evals</span></span></li>
+        </ul>
+        <p class="goal"><b>By end of phase</b> One deployed portfolio project you can show. Budget 4–6 weeks at ~3 hrs/week — don't rush this one.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="kit">
+    <h2>Survival kit</h2>
+    <ul>
+      <li><b>Protect the build block, sacrifice fragments first.</b> If a week shrinks, drop the videos — you can catch them on your phone later — but keep the one hands-on block. Building beats watching.</li>
+      <li><b>End each build block with one sentence:</b> "where I am / what's next" in a notes file. With interruptions, future-you won't remember, and this saves the re-orientation time that kills fragmented learning.</li>
+      <li><b>Use L&amp;D time for the heavy-video weeks</b> (4–6, 8–10, 13–15). Lectures are easy to justify and easy to pause.</li>
+      <li><b>Free to audit ≠ free certificate.</b> Coursera and DeepLearning.AI courses give you full video and most labs for free; only the certificate costs money. If you just need the skills, auditing is enough.</li>
+      <li><b>Nothing expires.</b> The plan is sequential, not date-locked. Sick kid or work crunch? Slide it all forward and pick up where you left off.</li>
+    </ul>
+  </section>
+
+  <section class="optional">
+    <h2>Optional: the cheap paid shortcut</h2>
+    <p>If you'd rather have it all bundled and sequenced, Ed Donner's <a href="https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/" target="_blank" rel="noopener">Complete Agentic AI Engineering Course</a> on Udemy maps closest to this syllabus — OpenAI Agents SDK, CrewAI, LangGraph, AutoGen, MCP, and eight projects including a capstone. It's frequently on sale for around $15–25 rather than full price.</p>
+  </section>
+
+  <footer>
+    Built for limited time and real life. Open it whenever you have a spare 25 minutes.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'agentic-study-progress';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.chk'));
+  var countEl = document.getElementById('count');
+  var fillEl = document.getElementById('fill');
+  var resetBtn = document.getElementById('reset');
+  var total = boxes.length;
+  var state = {};
+
+  function safeGet(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function safeSet(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+
+  function render(){
+    var done = 0;
+    boxes.forEach(function(b){
+      var li = b.closest('li');
+      if(b.checked){ done++; if(li) li.classList.add('done'); }
+      else if(li){ li.classList.remove('done'); }
+    });
+    countEl.textContent = done + ' / ' + total;
+    fillEl.style.width = total ? (done/total*100) + '%' : '0%';
+  }
+
+  state = safeGet();
+  boxes.forEach(function(b){
+    if(state[b.dataset.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.dataset.id] = b.checked;
+      render();
+      safeSet();
+    });
+  });
+  render();
+
+  resetBtn.addEventListener('click', function(){
+    state = {};
+    boxes.forEach(function(b){ b.checked = false; });
+    render();
+    try { localStorage.removeItem(KEY); } catch(e){}
+  });
+
+  // Register service worker for offline use
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
